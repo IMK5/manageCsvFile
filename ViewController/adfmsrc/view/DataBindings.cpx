@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.9.14" id="DataBindings"
+             SeparateXMLFiles="false" Package="view" ClientType="Generic">
+  <pageMap>
+    <page path="/display.jsf" usageId="view_displayPageDef"/>
+    <page path="/ManageErrorData.jsf" usageId="view_untitled1PageDef"/>
+    <page path="/web/template1/uploadFile.jsf" usageId="view_UploadFilePageDef"/>
+    <page path="/employee.jsff" usageId="view_employeePageDef"/>
+    <page path="/HoldErrors.jsf" usageId="view_HoldErrorsPageDef"/>
+    <page path="/test.jsf" usageId="view_testPageDef"/>
+    <page path="/web/template1/updateErrorDataStructure.jsf" usageId="view_untitled1PageDef1"/>
+    <page path="/web/template1/validationData.jsf" usageId="view_validationDataPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="view_displayPageDef" path="view.pageDefs.displayPageDef"/>
+    <page id="view_untitled1PageDef" path="view.pageDefs.untitled1PageDef"/>
+    <page id="view_UploadFilePageDef" path="view.pageDefs.UploadFilePageDef"/>
+    <page id="view_employeePageDef" path="view.pageDefs.employeePageDef"/>
+    <page id="view_HoldErrorsPageDef" path="view.pageDefs.HoldErrorsPageDef"/>
+    <page id="view_testPageDef" path="view.pageDefs.testPageDef"/>
+    <page id="view_untitled1PageDef1" path="view.pageDefs.untitled1PageDef1"/>
+    <page id="view_validationDataPageDef" path="view.pageDefs.validationDataPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="AppModuleDataControl" Package="model"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="AppModuleLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

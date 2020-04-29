@@ -9,23 +9,16 @@
   DBObjectType="table"
   DBObjectName="WORKER"
   AliasName="Worker"
-  BindingStyle="OracleName"
-  RowClass="model.WorkerImpl">
-  <DesignTime>
-    <Attr Name="_isCodegen" Value="true"/>
-  </DesignTime>
+  BindingStyle="OracleName">
   <Attribute
     Name="Id"
+    IsNotNull="true"
     ColumnName="ID"
     SQLType="NUMERIC"
-    Type="oracle.jbo.domain.DBSequence"
+    Type="java.math.BigDecimal"
     ColumnType="NUMBER"
     TableName="WORKER"
-    PrimaryKey="true"
-    IsUpdateable="while_insert"
-    DefaultValue="@0"
-    Domain="oracle.jbo.domain.DBSequence"
-    RetrievedOnInsert="true"/>
+    PrimaryKey="true"/>
   <Attribute
     Name="SerialNumber"
     ColumnName="SERIAL_NUMBER"
@@ -262,6 +255,72 @@
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="model.Worker.Id"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="ContractTypeFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="CONTRACT_TYPE_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="CONTRACT_TYPE_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.Worker.ContractType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="EducLevelFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="EDUCATIONAL_LEVEL_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="EDUC_LEVEL_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.Worker.EducationalLevel"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="GenderFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="GENDER_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="GENDER_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.Worker.Gender"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="HousingTypeFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="HOUSING_TYPE_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="HOUSING_TYPE_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.Worker.HousingType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="NationalityFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="NATIONALITY_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="NATIONALITY_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.Worker.NationalityCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SocialStatusFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SOCIAL_STATUS_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="SOCIAL_STATUS_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.Worker.SocialStatus"/>
     </AttrArray>
   </Key>
 </Entity>

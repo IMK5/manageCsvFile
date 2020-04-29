@@ -1,7 +1,5 @@
 package test.java;
 
-import beanws.EmployeeDto;
-
 import java.text.ParseException;
 
 import java.util.Date;
@@ -10,12 +8,15 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import view.backing.Services;
+import view.backing.CommonService;
+import view.backing.emp.EmpServices;
+
+import view.common.EmployeeDto;
 
 
 public class ServicesTest {
 
-    private Services service = new Services();
+    private EmpServices service = new EmpServices();
 
     @Before
     public void setUp() throws Exception {
@@ -39,7 +40,7 @@ public class ServicesTest {
     @Test
     public void convertArrayToStringTest() {
         String[] array = { "", "Luis", "", "LPOPP" };
-        String result = service.convertArrayToString(array);
+        String result = CommonService.convertArrayToString(array);
         assertEquals(result, "Luis,LPOPP");
 
     }
@@ -47,7 +48,7 @@ public class ServicesTest {
     @Test
     public void convertArrayToStringWhenGivingEmptyArrayTest() {
         String[] array = { "", "", "", "" };
-        String result = service.convertArrayToString(array);
+        String result = CommonService.convertArrayToString(array);
         assertEquals(result, "");
 
     }
@@ -55,14 +56,14 @@ public class ServicesTest {
     @Test
     public void convertStringToDateTest() throws ParseException {
         String sDate = "17-JUN-03";
-        Date date = service.convertStringToDate(sDate,"dd-MMM-yy");
+        Date date = CommonService.convertStringToDate(sDate,"dd-MMM-yy");
         assertEquals(date.toString(), "Tue Jun 17 00:00:00 AST 2003");
     }
 
     @Test(expected = Exception.class)
     public void convertStringToDateThrowsExceptionTest() throws ParseException {
         String sDate = "17-05-03";
-        Date date = service.convertStringToDate(sDate,"dd-MMM-yy");
+        Date date = CommonService.convertStringToDate(sDate,"dd-MMM-yy");
     }
 
     private EmployeeDto buildEmployeeDto() throws ParseException {
@@ -72,7 +73,7 @@ public class ServicesTest {
         dto.setLastName("King");
         dto.setEmail("BOB@SKI.COM");
         dto.setPhoneNumber("515.123.4567");
-        Date date = service.convertStringToDate("17-Jun-03","dd-MMM-yy");
+        Date date = CommonService.convertStringToDate("17-Jun-03","dd-MMM-yy");
         dto.setHireDate(date);
         dto.setJobId("AD_PRES");
         dto.setSalary(24000L);

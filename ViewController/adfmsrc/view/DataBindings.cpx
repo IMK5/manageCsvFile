@@ -4,12 +4,14 @@
   <pageMap>
     <page path="/display.jsf" usageId="view_displayPageDef"/>
     <page path="/ManageErrorData.jsf" usageId="view_untitled1PageDef"/>
-    <page path="/web/template1/uploadFile.jsf" usageId="view_UploadFilePageDef"/>
+    <page path="/web/template1/employeesTemplate.jsf" usageId="view_UploadFilePageDef"/>
     <page path="/employee.jsff" usageId="view_employeePageDef"/>
     <page path="/HoldErrors.jsf" usageId="view_HoldErrorsPageDef"/>
     <page path="/test.jsf" usageId="view_testPageDef"/>
-    <page path="/web/template1/updateErrorDataStructure.jsf" usageId="view_untitled1PageDef1"/>
-    <page path="/web/template1/validationData.jsf" usageId="view_validationDataPageDef"/>
+    <page path="/web/template1/empUpdateErrorDataStructure.jsf" usageId="view_untitled1PageDef1"/>
+    <page path="/web/template1/empValidationData.jsf" usageId="view_validationDataPageDef"/>
+    <page path="/web/template2/workerTemplate.jsf" usageId="view_workerTemplatePageDef"/>
+    <page path="/web/template2/untitled1.jsf" usageId="view_untitled1PageDef2"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="view_displayPageDef" path="view.pageDefs.displayPageDef"/>
@@ -20,6 +22,8 @@
     <page id="view_testPageDef" path="view.pageDefs.testPageDef"/>
     <page id="view_untitled1PageDef1" path="view.pageDefs.untitled1PageDef1"/>
     <page id="view_validationDataPageDef" path="view.pageDefs.validationDataPageDef"/>
+    <page id="view_workerTemplatePageDef" path="web.template2.workerTemplatePageDef"/>
+    <page id="view_untitled1PageDef2" path="web.template2.untitled1PageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="AppModuleDataControl" Package="model"

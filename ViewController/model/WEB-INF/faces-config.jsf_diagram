@@ -8,37 +8,62 @@
          name="y">251.20117</property>
    </OverallProperties>
    <Page
-      id="Page2">
+      id="Page4">
       <property
-         name="jspName">/uploadFile.jsf</property>
+         name="jspName">/web/template2/workerTemplate.jsf</property>
       <property
-         name="x">88.01758</property>
+         name="x">731.2461</property>
       <property
-         name="y">83.5</property>
+         name="y">409.44824</property>
       <property
          name="wildcard">false</property>
    </Page>
    <Page
       id="Page3">
       <property
-         name="jspName">/updateErrorDataStructure.jsf</property>
+         name="jspName">/web/template1/employeesTemplate.jsf</property>
       <property
-         name="x">562.2783</property>
+         name="x">739.2588</property>
       <property
-         name="y">93.79883</property>
+         name="y">161.44824</property>
+      <property
+         name="wildcard">false</property>
+   </Page>
+   <Page
+      id="Page2">
+      <property
+         name="jspName">/web/common/chooseTemplate.jsf</property>
+      <property
+         name="x">392.24805</property>
+      <property
+         name="start">true</property>
+      <property
+         name="y">240.28125</property>
       <property
          name="wildcard">false</property>
    </Page>
    <NavigationCase
       islink="true"
-      id="NavigationCase4"
+      id="NavigationCase5"
       from="Page2"
       to="Page3">
       <property
          name="description">Navigation Case</property>
       <property
-         name="fromOutcome">updateDataStructure</property>
+         name="fromOutcome">empTemplate</property>
       <property
-         name="sdm:polyPoints">R50,129.01758,83.149414,521.2783,93.44824,L50</property>
+         name="sdm:polyPoints">R46,433.24805,236.43066,698.2588,161.09766,L50</property>
+   </NavigationCase>
+   <NavigationCase
+      islink="true"
+      id="NavigationCase6"
+      from="Page2"
+      to="Page4">
+      <property
+         name="description">Navigation Case</property>
+      <property
+         name="fromOutcome">workerTemplate</property>
+      <property
+         name="sdm:polyPoints">R54,433.24805,243.43066,690.2461,409.09766,L50</property>
    </NavigationCase>
 </SDM>

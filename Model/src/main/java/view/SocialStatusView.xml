@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1256" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SocialStatusView"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  SelectListFlags="1"
+  FromListFlags="1"
+  WhereFlags="1"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  SelectAllAttributes="false"
+  PageIterMode="Full">
+  <EntityUsage
+    Name="SocialStatus"
+    Entity="model.SocialStatus"/>
+  <ViewAttribute
+    Name="Code"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Code"
+    EntityUsage="SocialStatus"
+    AliasName="CODE"/>
+  <ViewAttribute
+    Name="ArDescription"
+    PrecisionRule="true"
+    EntityAttrName="ArDescription"
+    EntityUsage="SocialStatus"
+    AliasName="AR_DESCRIPTION"/>
+  <ViewAttribute
+    Name="EngDescription"
+    PrecisionRule="true"
+    EntityAttrName="EngDescription"
+    EntityUsage="SocialStatus"
+    AliasName="ENG_DESCRIPTION"/>
+</ViewObject>

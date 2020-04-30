@@ -1,0 +1,6 @@
+The following Synchronization Actions were performed successfully:
+
+Entity :Worker
+  Attribute :Id
+    Change Mandatory to:true
+  Remove Key Constraint: WorkerIdCheck

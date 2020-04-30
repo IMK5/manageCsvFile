@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1256" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EducationalLevel"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="EDUCATIONAL_LEVEL"
+  AliasName="EducationalLevel"
+  BindingStyle="OracleName">
+  <Attribute
+    Name="Code"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="CODE"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="EDUCATIONAL_LEVEL"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="ArDescription"
+    Precision="50"
+    ColumnName="AR_DESCRIPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EDUCATIONAL_LEVEL">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="EngDescription"
+    Precision="50"
+    ColumnName="ENG_DESCRIPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="EDUCATIONAL_LEVEL">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Key
+    Name="EducationalLevelPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="EDUCATIONAL_LEVEL_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.EducationalLevel.Code"/>
+    </AttrArray>
+  </Key>
+</Entity>

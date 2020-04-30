@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="untitled1PageDef"
+                Package="web.template2">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="WorkerView1" RangeSize="25" DataControl="AppModuleDataControl" id="WorkerView1Iterator"/>
+    <searchRegion Binds="WorkerView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="WorkerView1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="WorkerView1Iterator" id="WorkerView1">
+      <nodeDefinition DefName="model.WorkerView" Name="WorkerView10">
+        <AttrNames>
+          <Item Value="Qid"/>
+          <Item Value="Name"/>
+          <Item Value="NationalityCode"/>
+          <Item Value="Gender"/>
+          <Item Value="SocialStatus"/>
+          <Item Value="SpouseQid"/>
+          <Item Value="BirthDate"/>
+          <Item Value="HiringDate"/>
+          <Item Value="JobNumber"/>
+          <Item Value="JobName"/>
+          <Item Value="ContractType"/>
+          <Item Value="EducationalLevel"/>
+          <Item Value="Specialization"/>
+          <Item Value="BasicSalary"/>
+          <Item Value="SocialAllowance"/>
+          <Item Value="TransportAllowance"/>
+          <Item Value="WorkNatureAllowance"/>
+          <Item Value="HousingAllowance"/>
+          <Item Value="OtherAllowance"/>
+          <Item Value="TotalMonthlySalary"/>
+          <Item Value="HousingType"/>
+          <Item Value="AdditionalNotes"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

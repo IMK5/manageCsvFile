@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+af|popup {
+    -tr-default-content-width: -1;
+    -tr-default-content-height: -1;
+    background-color: Highlight;
+    border-color: #006262; 
+}
+af|popup::title {
+    color: #002e4e;
+}

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+ xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="HoldErrors.jsf" id="d1">
+        <af:popup id="popup" animate="true" contentDelivery="lazyUncached" autoDismissalTimeout="2"
+                  binding="#{manageErrorDataMBean.popup}">
+            <af:panelGroupLayout id="pgl1" layout="horizontal">
+                <!--<af:image source="#{resource['images:success.png']}" id="i1"/>-->
+                <af:outputFormatted value="Your changes have been saved" id="of1"/>
+            </af:panelGroupLayout>
+        </af:popup>
+        <af:messages id="m1"/>
+        <af:form id="f1">
+            <af:pageTemplate viewId="/oracle/templates/threeColumnTemplate.jspx" id="pt1">
+                <f:facet name="center">
+                    <af:panelBox id="panelHeader" text="Manage error data" background="light"
+                                 inlineStyle="text-align:center;" contentStyle="background: #eff2f5;"></af:panelBox>
+                    <af:spacer width="10" height="25"/>
+                    <af:panelSplitter id="psEmployee" splitterPosition="292">
+                        <f:facet name="first" width="40%">
+                            <af:panelFormLayout id="panelForm" styleClass="SpecialMarker"
+                                                partialTriggers="bReset bSaveEmpl">
+                                <af:inputText label="EmployeeId" value="#{manageErrorDataMBean.empDto.emploeeId}"
+                                                autoSubmit="true" id="emploeeIdInput" readOnly="true"
+                                              binding="#{manageErrorDataMBean.emploeeIdInput}"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.firstName}" label="FirstName"
+                                                autoSubmit="true" id="firstNameInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.lastName}" label="LastName"
+                                                autoSubmit="true" id="lastNameInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.email }" label="Email"
+                                                autoSubmit="true" id="emailInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.phoneNumber}" label="PhoneNumber"
+                                                id="phoneNumberInput"></af:inputText>
+                                <af:inputDate value="#{manageErrorDataMBean.empDto.hireDate}" label="HireDate"
+                                                autoSubmit="true" id="hireDateInput"></af:inputDate>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.jobId}" label="JobId"  
+                                              autoSubmit="true" id="jobIdInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.salary}" label="Salary"
+                                                autoSubmit="true" id="salaryInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.commissionPct}" label="CommissionPct"
+                                                autoSubmit="true" id="commissionPctInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.managerId}" label="ManagerId"
+                                                autoSubmit="true" id="managerIdInput"></af:inputText>
+                                <af:inputText value="#{manageErrorDataMBean.empDto.departmentId}" label="DepartmentId"
+                                              id="departmentIdInput"   autoSubmit="true"></af:inputText>
+                                <af:spacer width="10" height="20"/>
+                                <af:toolbar id="t1">
+                                    <af:button text="Save" id="bSaveEmpl"
+                                               actionListener="#{manageErrorDataMBean.saveEmployee}"/>
+                                    <af:button text="Reset" id="bReset"
+                                               actionListener="#{manageErrorDataMBean.resetFormInput}"/>
+                                </af:toolbar>
+                            </af:panelFormLayout>
+                        </f:facet>
+                        <f:facet name="second" width="60%">
+                            <af:subform id="subForm" binding="#{manageErrorDataMBean.subFormtable}">
+                                <af:table value="#{bindings.DataErrorsView1.collectionModel}" var="row" width="100%"
+                                          rows="#{bindings.DataErrorsView1.rangeSize}"
+                                          emptyText="#{bindings.DataErrorsView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          rowBandingInterval="0" fetchSize="13"
+                                          filterModel="#{bindings.DataErrorsView1Query.queryDescriptor}"
+                                          binding="#{manageErrorDataMBean.errorDataTable}" filterVisible="true"
+                                          queryListener="#{bindings.DataErrorsView1Query.processQuery}" varStatus="vs"
+                                          id="errorDataTable" rowSelection="single"
+                                          selectionListener="#{manageErrorDataMBean.selectionRowListener}"
+                                          scrollPolicy="page" Refresh="always" CacheResults="false"
+                                          partialTriggers=":::bSaveEmpl">
+                                    <af:column sortProperty="#{bindings.DataErrorsView1.hints.Id.name}"
+                                               filterable="true" sortable="true"
+                                               headerText="#{bindings.DataErrorsView1.hints.Id.label}" id="c1"
+                                               width="100">
+                                        <af:outputText value="#{row.Id}"
+                                                       shortDesc="#{bindings.DataErrorsView1.hints.Id.tooltip}"
+                                                       id="ot1">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.DataErrorsView1.hints.Id.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.DataErrorsView1.hints.Data.name}"
+                                               filterable="true" sortable="true"
+                                               headerText="#{bindings.DataErrorsView1.hints.Data.label}" id="c2"
+                                               width="411">
+                                        <af:outputText value="#{row.Data}"
+                                                       shortDesc="#{bindings.DataErrorsView1.hints.Data.tooltip}"
+                                                       id="ot2"/>
+                                    </af:column>
+                                </af:table>
+                            </af:subform>
+                        </f:facet>
+                    </af:panelSplitter>
+                </f:facet>
+                <f:facet name="header"/>
+                <f:facet name="end"/>
+                 <f:facet name="start">
+                     <ui:include src="/web/template1/empNavigation.jsff"/> 
+                </f:facet>
+                <f:facet name="branding"/>
+                <f:facet name="copyright"/>
+                <f:facet name="status"/>
+            </af:pageTemplate>
+        </af:form>
+    </af:document>
+</f:view>

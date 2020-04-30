@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="uploadFile.jsf" id="d1">
+        <af:popup id="popup" animate="true" contentDelivery="lazyUncached" autoDismissalTimeout="3"
+                  binding="#{workerMB.popup}">
+            <af:panelGroupLayout id="pgl1" layout="horizontal">
+                <!--<af:image source="#{resource['images:success.png']}" id="i1"/>-->
+                <af:outputFormatted value="Your changes have been saved" id="of1"/>
+            </af:panelGroupLayout>
+        </af:popup>
+        <af:form id="uploadForm" usesUpload="true">
+            <af:pageTemplate viewId="/oracle/templates/threeColumnTemplate.jspx" id="pt1">
+                <f:facet name="center">
+                    <af:panelBox id="panelHeader" text="Upload and Process CSV File [ Worker Template ]"
+                                 background="light" inlineStyle="text-align:center;" contentStyle="background: #eff2f5;"
+                                 showDisclosure="false"></af:panelBox>
+                    <af:spacer width="10" height="25"/>
+                    <af:panelBox id="input">
+                        <af:inputFile id="richUploadFile" binding="#{workerMB.richUploadFile}" label="File "
+                                      valueChangeListener="#{workerMB.uploadFileListener}"
+                                      inlineStyle="width:200px;" autoSubmit="true"/>
+                    </af:panelBox>
+                    <af:spacer width="10" height="25"/>
+                    <af:panelFormLayout id="s1" visible="#{workerMB.displayTable}"
+                                        partialTriggers="richUploadFile" binding="#{workerMB.panelForm}">
+                        <af:panelBox id="pinfo" text="File information" background="light"
+                                     contentStyle="background: #eff2f5;" showDisclosure="false">
+                            <af:inputText label="File Name :" value="#{workerMB.fileInfoDto.fileName}"
+                                          readOnly="true" autoSubmit="true"/>
+                            <af:inputText label="File Type :" value="#{workerMB.fileInfoDto.fileType}"
+                                          readOnly="true" autoSubmit="true"/>
+                            <af:inputText label="File Size :" value="#{workerMB.fileInfoDto.fileSize} Bytes"
+                                          readOnly="true" autoSubmit="true"/>
+                            <af:inputText label="Right number of lines :" autoSubmit="true"
+                                          value="#{workerMB.fileInfoDto.rightDataNumber}" readOnly="true"/>
+                            <af:inputText label="Wrong number of lines :" autoSubmit="true"
+                                          contentStyle="#{workerMB.fileInfoDto.errorRecordsNumber > 0 ? 'background: #FF0000;;': ''} "
+                                          value="#{workerMB.fileInfoDto.errorRecordsNumber}" readOnly="true"/>
+                            <af:goLink text="Please click here to fix structure data before save them"
+                                       inlineStyle="font-size: 20px;background: #FFA07A;"
+                                       destination="empUpdateErrorDataStructure.jsf" id="gl1"
+                                       visible="#{workerMB.fileInfoDto.errorRecordsNumber > 0 ? 'true': 'false'}"/>
+                        </af:panelBox>
+                        <af:spacer width="10" height="25"/>
+                        <af:messages id="msg" globalOnly="true" inline="true" inlineStyle="color:#ff4242;"/>
+                        <af:spacer width="10" height="25"/>
+                        <af:table value="#{bindings.WorkerDraftView11.collectionModel}" var="row"
+                                  rows="#{bindings.WorkerDraftView11.rangeSize}"
+                                  emptyText="#{bindings.WorkerDraftView11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0" scrollPolicy="page"  fetchSize="20"
+                                  selectedRowKeys="#{bindings.WorkerDraftView11.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.WorkerDraftView11.collectionModel.makeCurrent}"
+                                  rowSelection="single"  
+                                  filterModel="#{bindings.WorkerDraftView1Query.queryDescriptor}" filterVisible="true"
+                                  queryListener="#{bindings.WorkerDraftView1Query.processQuery}" varStatus="vs" id="t1">
+                            <af:column id="inx" sortable="false" width="25">
+                                <af:outputText value="#{vs.index+1}" id="otInex"/>
+                            </af:column>
+                           
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.SerialNumber.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.SerialNumber.label}" id="c1">
+                                <af:inputText value="#{row.bindings.SerialNumber.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.SerialNumber.label}"
+                                              columns="#{bindings.WorkerDraftView11.hints.SerialNumber.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.SerialNumber.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.SerialNumber.tooltip}"
+                                              autosubmit="true" id="it1">
+                                    <f:validator binding="#{row.bindings.SerialNumber.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.SerialNumber.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.Qid.name}" filterable="true"
+                                       sortable="true" headerText="#{bindings.WorkerDraftView11.hints.Qid.label}"
+                                       id="c2">
+                                <af:inputText value="#{row.bindings.Qid.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.Qid.label}"
+                                              columns="#{bindings.WorkerDraftView11.hints.Qid.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.Qid.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Qid.tooltip}" 
+                                              autosubmit="true" id="it2">
+                                    <f:validator binding="#{row.bindings.Qid.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.Qid.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.Name.name}" filterable="true"
+                                       sortable="true" headerText="#{bindings.WorkerDraftView11.hints.Name.label}"
+                                       id="c3">
+                                <af:inputText value="#{row.bindings.Name.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.Name.label}"
+                                               autosubmit="true"
+                                               columns="#{bindings.WorkerDraftView11.hints.Name.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.Name.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Name.tooltip}" id="it3">
+                                    <f:validator binding="#{row.bindings.Name.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.NationalityCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.NationalityCode.label}" id="c4">
+                                <af:inputText value="#{row.bindings.NationalityCode.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.NationalityCode.label}"
+                                              columns="#{bindings.WorkerDraftView11.hints.NationalityCode.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.NationalityCode.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.NationalityCode.tooltip}"
+                                              id="it4"  autosubmit="true">
+                                    <f:validator binding="#{row.bindings.NationalityCode.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.NationalityCode.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.Gender.name}" filterable="true"
+                                       sortable="true" headerText="#{bindings.WorkerDraftView11.hints.Gender.label}"
+                                       id="c5">
+                                <af:inputText value="#{row.bindings.Gender.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.Gender.label}"
+                                              columns="#{bindings.WorkerDraftView11.hints.Gender.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.Gender.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Gender.tooltip}" id="it5">
+                                    <f:validator binding="#{row.bindings.Gender.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.SocialStatus.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.SocialStatus.label}" id="c6">
+                                <af:inputText value="#{row.bindings.SocialStatus.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.SocialStatus.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.SocialStatus.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.SocialStatus.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.SocialStatus.tooltip}"
+                                              id="it6">
+                                    <f:validator binding="#{row.bindings.SocialStatus.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.SpouseQid.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.SpouseQid.label}" id="c7">
+                                <af:inputText value="#{row.bindings.SpouseQid.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.SpouseQid.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.SpouseQid.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.SpouseQid.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.SpouseQid.tooltip}"
+                                              id="it7">
+                                    <f:validator binding="#{row.bindings.SpouseQid.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.SpouseQid.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.BirthDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.BirthDate.label}" id="c8">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.WorkerDraftView1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.BirthDate.value}"
+                                                  id="id1">
+                                        <af:convertDateTime pattern="#{bindings.WorkerDraftView11.hints.BirthDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:inputDate value="#{row.bindings.BirthDate.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.BirthDate.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.BirthDate.displayWidth}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.BirthDate.tooltip}"
+                                              id="id2">
+                                    <f:validator binding="#{row.bindings.BirthDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.WorkerDraftView11.hints.BirthDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.HiringDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.HiringDate.label}" id="c9">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.WorkerDraftView1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.HiringDate.value}"
+                                                  id="id3">
+                                        <af:convertDateTime pattern="#{bindings.WorkerDraftView11.hints.HiringDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:inputDate value="#{row.bindings.HiringDate.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.HiringDate.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.HiringDate.displayWidth}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.HiringDate.tooltip}"
+                                              id="id4">
+                                    <f:validator binding="#{row.bindings.HiringDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.WorkerDraftView11.hints.HiringDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.JobNumber.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.JobNumber.label}" id="c10">
+                                <af:inputText value="#{row.bindings.JobNumber.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.JobNumber.label}"
+                                              columns="#{bindings.WorkerDraftView11.hints.JobNumber.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.JobNumber.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.JobNumber.tooltip}"
+                                              id="it8">
+                                    <f:validator binding="#{row.bindings.JobNumber.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.JobName.name}" filterable="true"
+                                       sortable="true" headerText="#{bindings.WorkerDraftView11.hints.JobName.label}"
+                                       id="c11">
+                                <af:inputText value="#{row.bindings.JobName.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.JobName.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.JobName.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.JobName.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.JobName.tooltip}" id="it9">
+                                    <f:validator binding="#{row.bindings.JobName.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.ContractType.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.ContractType.label}" id="c12">
+                                <af:inputText value="#{row.bindings.ContractType.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.ContractType.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.ContractType.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.ContractType.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.ContractType.tooltip}"
+                                              id="it10">
+                                    <f:validator binding="#{row.bindings.ContractType.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.EducationalLevel.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.EducationalLevel.label}" id="c13">
+                                <af:inputText value="#{row.bindings.EducationalLevel.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.EducationalLevel.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.EducationalLevel.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.EducationalLevel.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.EducationalLevel.tooltip}"
+                                              id="it11">
+                                    <f:validator binding="#{row.bindings.EducationalLevel.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.EducationalLevel.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.Specialization.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.Specialization.label}" id="c14">
+                                <af:inputText value="#{row.bindings.Specialization.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.Specialization.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.Specialization.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.Specialization.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Specialization.tooltip}"
+                                              id="it12">
+                                    <f:validator binding="#{row.bindings.Specialization.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.BasicSalary.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.BasicSalary.label}" id="c15">
+                                <af:inputText value="#{row.bindings.BasicSalary.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.BasicSalary.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.BasicSalary.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.BasicSalary.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.BasicSalary.tooltip}"
+                                              id="it13">
+                                    <f:validator binding="#{row.bindings.BasicSalary.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.BasicSalary.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.SocialAllowance.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.SocialAllowance.label}" id="c16">
+                                <af:inputText value="#{row.bindings.SocialAllowance.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.SocialAllowance.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.SocialAllowance.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.SocialAllowance.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.SocialAllowance.tooltip}"
+                                              id="it14">
+                                    <f:validator binding="#{row.bindings.SocialAllowance.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.SocialAllowance.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.TransportAllowance.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.TransportAllowance.label}"
+                                       id="c17">
+                                <af:inputText value="#{row.bindings.TransportAllowance.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.TransportAllowance.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.TransportAllowance.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.TransportAllowance.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.TransportAllowance.tooltip}"
+                                              id="it15">
+                                    <f:validator binding="#{row.bindings.TransportAllowance.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.TransportAllowance.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.label}"
+                                       id="c18">
+                                <af:inputText value="#{row.bindings.WorkNatureAllowance.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.tooltip}"
+                                              id="it16">
+                                    <f:validator binding="#{row.bindings.WorkNatureAllowance.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.WorkNatureAllowance.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.HousingAllowance.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.HousingAllowance.label}" id="c19">
+                                <af:inputText value="#{row.bindings.HousingAllowance.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.HousingAllowance.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.HousingAllowance.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.HousingAllowance.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.HousingAllowance.tooltip}"
+                                              id="it17">
+                                    <f:validator binding="#{row.bindings.HousingAllowance.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.HousingAllowance.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.OtherAllowance.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.OtherAllowance.label}" id="c20">
+                                <af:inputText value="#{row.bindings.OtherAllowance.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.OtherAllowance.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.OtherAllowance.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.OtherAllowance.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.OtherAllowance.tooltip}"
+                                              id="it18">
+                                    <f:validator binding="#{row.bindings.OtherAllowance.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.OtherAllowance.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.label}"
+                                       id="c21">
+                                <af:inputText value="#{row.bindings.TotalMonthlySalary.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.tooltip}"
+                                              id="it19">
+                                    <f:validator binding="#{row.bindings.TotalMonthlySalary.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.HousingType.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.HousingType.label}" id="c22">
+                                <af:inputText value="#{row.bindings.HousingType.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.HousingType.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.HousingType.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.HousingType.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.HousingType.tooltip}"
+                                              id="it20">
+                                    <f:validator binding="#{row.bindings.HousingType.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.WorkerDraftView11.hints.AdditionalNotes.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.WorkerDraftView11.hints.AdditionalNotes.label}" id="c23">
+                                <af:inputText value="#{row.bindings.AdditionalNotes.inputValue}"
+                                              label="#{bindings.WorkerDraftView11.hints.AdditionalNotes.label}"
+                                              autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.AdditionalNotes.displayWidth}"
+                                              maximumLength="#{bindings.WorkerDraftView11.hints.AdditionalNotes.precision}"
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.AdditionalNotes.tooltip}"
+                                              id="it21">
+                                    <f:validator binding="#{row.bindings.AdditionalNotes.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                        </af:table>
+                        <af:panelBox id="pSave">
+                            <af:button text="Save"
+                                       id="bSave" action="#{workerMB.bSave_action}"/>
+                            <af:button text="Submit"
+                                         id="b1" action="#{workerMB.submit}"/>
+                        </af:panelBox>
+                    </af:panelFormLayout>
+                </f:facet>
+                <f:facet name="header"/>
+                <f:facet name="end"/>
+                <f:facet name="start">
+                    <ui:include src="/web/template1/empNavigation.jsff"/> 
+                </f:facet>
+                <f:facet name="branding"></f:facet>
+                <f:facet name="copyright"/>
+                <f:facet name="status"/>
+            </af:pageTemplate>
+        </af:form>
+    </af:document>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:csvFileUploadMB-->
+</f:view>

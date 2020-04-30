@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <af:document title="uploadFile.jsf" id="d1">
+        <af:popup id="popup" animate="true" contentDelivery="lazyUncached" autoDismissalTimeout="2"
+                  binding="#{csvFileUploadMB.popup}">
+            <af:panelGroupLayout id="pgl1" layout="horizontal">
+                <!--<af:image source="#{resource['images:success.png']}" id="i1"/>-->
+                <af:outputFormatted value="Your changes have been saved" id="of1"/>
+            </af:panelGroupLayout>
+        </af:popup>
+        <af:form id="uploadForm" usesUpload="true">
+            <af:pageTemplate viewId="/oracle/templates/threeColumnTemplate.jspx" id="pt1">
+                <f:facet name="center">
+                    <af:panelBox id="panelHeader" text="Upload and Process CSV File" background="light"
+                                 inlineStyle="text-align:center;" contentStyle="background: #eff2f5;"
+                                 showDisclosure="false"></af:panelBox>
+                    <af:spacer width="10" height="25"/>
+                    <af:spacer width="10" height="25"/>
+                    <af:panelBox id="template" text="Please Choose template : "  
+                                   showDisclosure="false">
+                        <af:panelList id="pl1">
+                            <af:link text="Employee Template" id="l1" action="empTemplate"/>
+                            <af:link text="Worker Template" id="l" action="workerTemplate"/>
+                        </af:panelList>
+                        <af:spacer width="10" height="25"/>
+                    </af:panelBox>
+                </f:facet>
+                <f:facet name="header"/>
+                <f:facet name="end"/>
+                <f:facet name="start"/>
+                <f:facet name="branding"/>
+                <f:facet name="copyright"/>
+                <f:facet name="status"/>
+            </af:pageTemplate>
+        </af:form>
+    </af:document>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:csvFileUploadMB-->
+</f:view>

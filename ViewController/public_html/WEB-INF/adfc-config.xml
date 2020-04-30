@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1256" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  
+  <managed-bean id="__2">
+    <managed-bean-name>displayMbean</managed-bean-name>
+    <managed-bean-class>view.DisplayMBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__6">
+    <managed-bean-name>csvFileUploadMB</managed-bean-name>
+    <managed-bean-class>view.backing.emp.CsvFileUploadMB</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <!--oracle-jdev-comment:managed-bean-jsp-link:1CsvFileUpload.jsf-->
+  </managed-bean>
+   <managed-bean id="__">
+    <managed-bean-name>workerMB</managed-bean-name>
+    <managed-bean-class>view.backing.worker.WorkerMB</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <!--oracle-jdev-comment:managed-bean-jsp-link:1CsvFileUpload.jsf-->
+  </managed-bean>
+  <managed-bean id="__1">
+    <managed-bean-name>manageErrorDataMBean</managed-bean-name>
+    <managed-bean-class>view.backing.emp.EmpManageErrorDataMBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  
+</adfc-config>

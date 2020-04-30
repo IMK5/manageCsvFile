@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+ xmlns:af="http://xmlns.oracle.com/adf/faces/rich" >
+    <af:panelList id="nav">
+        <af:link text="Choose template" destination="../common/chooseTemplate.jsf" id="ucf"/>
+        <af:link text="Manage structure data" destination="updateErrorDataStructure.jsf" id="msd"/>
+        <af:link text="Manage error data" destination="empValidationData.jsf" id="med"/>
+    </af:panelList>
+</ui:composition>

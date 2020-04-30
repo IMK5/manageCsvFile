@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1256"?>
+<faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee">
+  <application>
+    <default-render-kit-id>oracle.adf.rich</default-render-kit-id>
+  </application>
+  <navigation-rule>
+    <from-view-id>/web/common/chooseTemplate.jsf</from-view-id>
+    <navigation-case>
+      <from-outcome>empTemplate</from-outcome>
+      <to-view-id>/web/template1/employeesTemplate.jsf</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>workerTemplate</from-outcome>
+      <to-view-id>/web/template2/workerTemplate.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+</faces-config>

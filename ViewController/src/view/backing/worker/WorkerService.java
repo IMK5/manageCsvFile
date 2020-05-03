@@ -1,5 +1,7 @@
 package view.backing.worker;
 
+import java.sql.Timestamp;
+
 import java.text.ParseException;
 
 import java.util.Date;
@@ -14,67 +16,68 @@ import oracle.jbo.client.Configuration;
 
 import org.apache.commons.lang3.StringUtils;
 
-import view.backing.CommonService;
-
+import view.common.CommonService;
 import view.common.Template;
 import view.common.WorkerDto;
 
 
 public class WorkerService {
-    
-    private String dateFormat = "E MMM dd HH:mm:ss Z yyyy";
-    
+
+    private String dateFormat = "dd-MM-yy";
+
     /**
      * Update DB after validation data
      * @param appModule
      * @param rows : from WorkerDraft
      */
     public void saveFinalWorkerAndDeleteDraftWorker(AppModuleImpl appModule, Row[] rows) throws ParseException {
-            System.out.println("Call WorkerService.saveFinalWorkerAndDeleteDraftWorker ...");
-            
-            ViewObject draftWorkerVO = appModule.getWorkerDraftView1();
-            ViewObject finalWorkerVO = appModule.getWorkerView1();
-            try {
-                for (Row row : rows) {
-                    //Step1 : save Employee in DB
-                    createWorkerVO(finalWorkerVO, row);
-                    
-                    // Step2: delete draftEmp row from DB
-                    String draftWorkerId = row.getAttribute(Template.WORKER_ID).toString();
-                    CommonService.deleteRowById(draftWorkerVO, Template.WORKER_ID,draftWorkerId);
-                }
-                // Step3: commit transaction
-                appModule.getTransaction().commit();
-                CommonService.refreshTable("WorkerDraftView1Iterator");
-                
-            } finally {
-                Configuration.releaseRootApplicationModule(appModule, true);
+        System.out.println("Call WorkerService.saveFinalWorkerAndDeleteDraftWorker ...");
+
+        ViewObject draftWorkerVO = appModule.getWorkerDraftView1();
+        ViewObject finalWorkerVO = appModule.getWorkerView1();
+        try {
+            for (Row row : rows) {
+                //Step1 : save Employee in DB
+                createWorkerVO(finalWorkerVO, row);
+
+                // Step2: delete draftEmp row from DB
+                String draftWorkerId = row.getAttribute(Template.WORKER_ID).toString();
+                CommonService.deleteRowById(draftWorkerVO, Template.WORKER_ID, draftWorkerId);
             }
-        
-        
-        
+            // Step3: commit transaction
+            appModule.getTransaction().commit();
+            CommonService.refreshTable("WorkerDraftView1Iterator");
+
+        } finally {
+            Configuration.releaseRootApplicationModule(appModule, true);
         }
+
+
+    }
+
     private void createWorkerVO(ViewObject vo, Row draftRow) throws ParseException {
-        Row row = vo.createRow(); 
-         //row.setAttribute("EmployeeId", draftRow.getAttribute("EmployeeId"));
+        Row row = vo.createRow();
+        //row.setAttribute("EmployeeId", draftRow.getAttribute("EmployeeId"));
         row.setAttribute(Template.WORKER_SERIAL_NUMBER, draftRow.getAttribute(Template.WORKER_SERIAL_NUMBER));
         row.setAttribute(Template.WORKER_QID, draftRow.getAttribute(Template.WORKER_QID));
         row.setAttribute(Template.WORKER_NAME, draftRow.getAttribute(Template.WORKER_NAME));
         row.setAttribute(Template.WORKER_NATIONALITY_CODE, draftRow.getAttribute(Template.WORKER_NATIONALITY_CODE));
         row.setAttribute(Template.WORKER_GENDER, draftRow.getAttribute(Template.WORKER_GENDER));
-        row.setAttribute(Template.WORKER_SOCIALS_TATUS, draftRow.getAttribute(Template.WORKER_SOCIALS_TATUS));
+        row.setAttribute(Template.WORKER_SOCIALS_STATUS, draftRow.getAttribute(Template.WORKER_SOCIALS_STATUS));
         row.setAttribute(Template.WORKER_SPOUSE_QID, draftRow.getAttribute(Template.WORKER_SPOUSE_QID));
-        String sDate = (String) draftRow.getAttribute(Template.WORKER_BIRTHDATE);
-        if (!StringUtils.isEmpty(sDate)) {
-            Date date = CommonService.convertStringToDate(sDate,dateFormat );
-            row.setAttribute(Template.WORKER_BIRTHDATE, date);
+        java.sql.Timestamp bd = (Timestamp) draftRow.getAttribute(Template.WORKER_BIRTHDATE);
+        System.out.println("timestimp " + bd);
+        if (bd != null) {
+            // String dateString = new SimpleDateFormat(dateFormat).format(bd);
+            //  System.out.println("format date :  " + dateString);
+            row.setAttribute(Template.WORKER_BIRTHDATE, bd);
         }
-        String hDate = (String) draftRow.getAttribute(Template.WORKER_HIRINGDATE);
-        if (!StringUtils.isEmpty(sDate)) {
-            Date date = CommonService.convertStringToDate(sDate, dateFormat);
-            row.setAttribute(Template.WORKER_HIRINGDATE, date);
+        java.sql.Timestamp hd = (Timestamp) draftRow.getAttribute(Template.WORKER_HIRINGDATE);
+        if (hd != null) {
+            // String dateString = new SimpleDateFormat( dateFormat).format(bd);
+            row.setAttribute(Template.WORKER_HIRINGDATE, hd);
         }
-        
+
         row.setAttribute(Template.WORKER_JOB_NUMBER, draftRow.getAttribute(Template.WORKER_JOB_NUMBER));
         row.setAttribute(Template.WORKER_JOB_NAME, draftRow.getAttribute(Template.WORKER_JOB_NAME));
         row.setAttribute(Template.WORKER_CONTRACT_TYPE, draftRow.getAttribute(Template.WORKER_CONTRACT_TYPE));
@@ -82,20 +85,23 @@ public class WorkerService {
         row.setAttribute(Template.WORKER_SPECIALIZATION, draftRow.getAttribute(Template.WORKER_SPECIALIZATION));
         row.setAttribute(Template.WORKER_BASICSALARY, draftRow.getAttribute(Template.WORKER_BASICSALARY));
         row.setAttribute(Template.WORKER_SOCIALAL_LOWANCE, draftRow.getAttribute(Template.WORKER_SOCIALAL_LOWANCE));
-        row.setAttribute(Template.WORKER_TRANSPORT_ALLOWANCE, draftRow.getAttribute(Template.WORKER_TRANSPORT_ALLOWANCE));
-        row.setAttribute(Template.WORKER_WORK_NATURE_ALLOWANCE, draftRow.getAttribute(Template.WORKER_WORK_NATURE_ALLOWANCE));
+        row.setAttribute(Template.WORKER_TRANSPORT_ALLOWANCE,
+                         draftRow.getAttribute(Template.WORKER_TRANSPORT_ALLOWANCE));
+        row.setAttribute(Template.WORKER_WORK_NATURE_ALLOWANCE,
+                         draftRow.getAttribute(Template.WORKER_WORK_NATURE_ALLOWANCE));
         row.setAttribute(Template.WORKER_HOUSING_ALLOWANCE, draftRow.getAttribute(Template.WORKER_HOUSING_ALLOWANCE));
         row.setAttribute(Template.WORKER_OTHER_ALLOWANCE, draftRow.getAttribute(Template.WORKER_OTHER_ALLOWANCE));
-        row.setAttribute(Template.WORKER_TOTAL_MONTHLY_SALARY, draftRow.getAttribute(Template.WORKER_TOTAL_MONTHLY_SALARY));
+        row.setAttribute(Template.WORKER_TOTAL_MONTHLY_SALARY,
+                         draftRow.getAttribute(Template.WORKER_TOTAL_MONTHLY_SALARY));
         row.setAttribute(Template.WORKER_HOUSING_TYPE, draftRow.getAttribute(Template.WORKER_HOUSING_TYPE));
         row.setAttribute(Template.WORKER_ADDITIONAL_NOTES, draftRow.getAttribute(Template.WORKER_ADDITIONAL_NOTES));
- 
+
         vo.insertRow(row);
-        vo.executeQuery();
+       // vo.executeQuery();
 
     }
-    
-   /**
+
+    /**
      * Create new WorkerDto
      * @param empl splitted data fron csv file
      * @return WorkerDto
@@ -187,9 +193,9 @@ public class WorkerService {
         } finally {
             Configuration.releaseRootApplicationModule(am, true);
         }
-    
+
     }
-    
+
     private void createWorkerRow(ViewObject vo, WorkerDto dto) {
         Row row = vo.createRow();
         row.setAttribute(Template.WORKER_SERIAL_NUMBER, dto.getSerialNumber());
@@ -197,7 +203,7 @@ public class WorkerService {
         row.setAttribute(Template.WORKER_NAME, dto.getName());
         row.setAttribute(Template.WORKER_NATIONALITY_CODE, dto.getNationalityCode());
         row.setAttribute(Template.WORKER_GENDER, dto.getGender());
-        row.setAttribute(Template.WORKER_SOCIALS_TATUS, dto.getSocialStatus());
+        row.setAttribute(Template.WORKER_SOCIALS_STATUS, dto.getSocialStatus());
         row.setAttribute(Template.WORKER_SPOUSE_QID, dto.getSpouseQid());
         row.setAttribute(Template.WORKER_BIRTHDATE, dto.getBirthDate());
         row.setAttribute(Template.WORKER_HIRINGDATE, dto.getHiringDate());
@@ -218,6 +224,6 @@ public class WorkerService {
         vo.insertRow(row);
 
     }
-      
-    
+
+
 }

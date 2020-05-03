@@ -17,7 +17,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 
@@ -44,9 +43,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import view.backing.AbstractMBConfig;
-import view.backing.CommonService;
 import view.backing.ValidationRules;
 
+import view.common.CommonService;
 import view.common.EmployeeDto;
 import view.common.FileInfoDto;
 import view.common.Template;
@@ -86,9 +85,8 @@ public class CsvFileUploadMB extends AbstractMBConfig {
     private EmpServices services = new EmpServices();
     private ValidationRules validation = new ValidationRules();
     private RichPanelBox panelTable;
-    
-   
-    
+
+
     /**
      * Called when click on upload button
      * @param valueChangeEvent
@@ -110,25 +108,25 @@ public class CsvFileUploadMB extends AbstractMBConfig {
         }
 
         try {
-                    fileInfoDto = CommonService.buildFileInfo(uploadedFile);
-                    List<EmployeeDto> dtoList = buildData(br, uploadedFile);
-                    setEmployeesList(dtoList);
+            fileInfoDto = CommonService.buildFileInfo(uploadedFile);
+            List<EmployeeDto> dtoList = buildData(br, uploadedFile);
+            setEmployeesList(dtoList);
 
-                    getFileInfoDto().setErrorRecordsNumber(getWrongDataList().size());
-                    getFileInfoDto().setRightDataNumber(dtoList.size());
+            getFileInfoDto().setErrorRecordsNumber(getWrongDataList().size());
+            getFileInfoDto().setRightDataNumber(dtoList.size());
 
-                    // Save data in DB
-                    services.saveEmployees_Draft_AND_Error_Data(getEmployeesList(), getWrongDataList());
+            // Save data in DB
+            services.saveEmployees_Draft_AND_Error_Data(getEmployeesList(), getWrongDataList());
 
-                    //  Refresh table;
-                    CommonService.refreshTable("EmployeesDraftView1Iterator");
-                    if (getWrongDataList().size() > 0) {
-                        setDisplayStructureDataLink(true);
-                    }
+            //  Refresh table;
+            CommonService.refreshTable("EmployeesDraftView1Iterator");
+            if (getWrongDataList().size() > 0) {
+                setDisplayStructureDataLink(true);
+            }
 
-                    setDisplayTable(true);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getPanelForm());
-             
+            setDisplayTable(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getPanelForm());
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -147,26 +145,21 @@ public class CsvFileUploadMB extends AbstractMBConfig {
                 }
             }
         }
-    
+
     }
 
     /**
      * Save EmployeesDraft list in DB
      * @return String
      */
-    public String bSave_action() {
-
+    public String bSave_action2() {
         System.out.println("Call  bSave_action ...");
-        setRequiredFields(false);
-        // Remove validation
-        ///  FacesContext.getCurrentInstance().getMessages().remove();
         BindingContainer bindings = getBindings();
         OperationBinding operationBinding = bindings.getOperationBinding("Commit");
         Object result = operationBinding.execute();
         if (!operationBinding.getErrors().isEmpty()) {
             return null;
         }
-        // setDisplayTable(false);
         showPopup();
         return null;
     }
@@ -185,7 +178,7 @@ public class CsvFileUploadMB extends AbstractMBConfig {
         AppModuleImpl appModule = getConfig();
         // Validation data
 
-        if(requiredsFieldsValidated()){
+        if (requiredsFieldsValidated()) {
 
             try {
                 services.saveFinalEmployeeAndDeleteDraftEmployee(appModule, rows);
@@ -198,7 +191,7 @@ public class CsvFileUploadMB extends AbstractMBConfig {
 
         } else {
             setRequiredFields(true);
-
+            CommonService.shoeInlineMessage("Please check required fields !");
         }
 
 
@@ -206,7 +199,6 @@ public class CsvFileUploadMB extends AbstractMBConfig {
 
     }
 
-   
 
     /**
      * Build data from CSV file
@@ -287,37 +279,23 @@ public class CsvFileUploadMB extends AbstractMBConfig {
     }
 
     private void setRequiredFields(boolean value) {
-        System.out.println("Set manadatories fiels ....");
+        System.out.println("Set manadatories fiels to " + value);
         getLastNameInputText().setRequired(value);
         getEmailInputText().setRequired(value);
         getHireDateInputText().setRequired(value);
         getJobIdInputText().setRequired(value);
-        services.refreshComponentUI(getLastNameInputText());
-        //CommonService.shoeInlineMessage("Please check required fields !");
-        services.refreshComponentUI(getEmailInputText());
-        services.refreshComponentUI(getHireDateInputText());
-        services.refreshComponentUI(getJobIdInputText());
+        CommonService.refreshComponentUI(getLastNameInputText());
+        CommonService.refreshComponentUI(getEmailInputText());
+        CommonService.refreshComponentUI(getHireDateInputText());
+        CommonService.refreshComponentUI(getJobIdInputText());
 
 
     }
- /*
-    private void setRequiredFieldsToFalse() {
-        System.out.println("Set manadatories fiels to false....");
-        getLastNameInputText().setRequired(false);
-        getEmailInputText().setRequired(false);
-        getHireDateInputText().setRequired(false);
-        getJobIdInputText().setRequired(false);
-        services.refreshComponentUI(getLastNameInputText());
-        services.refreshComponentUI(getEmailInputText());
-        services.refreshComponentUI(getHireDateInputText());
-        services.refreshComponentUI(getJobIdInputText());
 
-    }*/
- 
     private boolean requiredsFieldsValidated() {
 
-        return getEmailInputText().isRequired() && getLastNameInputText().isRequired()
-            && getHireDateInputText().isRequired() && getJobIdInputText().isRequired();
+        return getEmailInputText().isRequired() && getLastNameInputText().isRequired() &&
+               getHireDateInputText().isRequired() && getJobIdInputText().isRequired();
 
     }
 
@@ -332,7 +310,7 @@ public class CsvFileUploadMB extends AbstractMBConfig {
                 return false;
             }
             if (StringUtils.isBlank(email)) {
-                 CommonService.shoeInlineMessage("Email should not be empty !");
+                CommonService.shoeInlineMessage("Email should not be empty !");
                 return false;
             }
 
@@ -628,32 +606,6 @@ public class CsvFileUploadMB extends AbstractMBConfig {
     public RichInputText getJobIdInputText() {
         return jobIdInputText;
     }
-/*
-    public void setEmpTemplate(boolean empTemplate) {
-        this.empTemplate = empTemplate;
-    }
+   
 
-    public boolean isEmpTemplate() {
-        return empTemplate;
-    }
-
-    public void setWorkerTemplate(boolean workerTemplate) {
-        this.workerTemplate = workerTemplate;
-    }
-
-    public boolean isWorkerTemplate() {
-        return workerTemplate;
-    }
-
-
-    public void setDisableUploadFileButton(boolean disableUploadFileButton) {
-        this.disableUploadFileButton = disableUploadFileButton;
-    }
-
-    public boolean isDisableUploadFileButton() {
-        return disableUploadFileButton;
-    }*/
-    public void saveAction(ActionEvent actionEvent) {
-        // Add event code here...
-    }
 }

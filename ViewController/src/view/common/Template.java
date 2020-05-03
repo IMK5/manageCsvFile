@@ -18,13 +18,13 @@ public class Template {
 
     // ------------- WORKER TEMPLATE -------------------------------------
 
-    public final static String WORKER_ID= "ID";
+    public final static String WORKER_ID= "Id";
     public final static String WORKER_SERIAL_NUMBER= "SerialNumber";
     public final static String WORKER_QID= "Qid";
     public final static String WORKER_NAME= "Name";
     public final static String WORKER_NATIONALITY_CODE= "NationalityCode";
     public final static String WORKER_GENDER = "Gender";
-    public final static String WORKER_SOCIALS_TATUS = "SocialStatus";
+    public final static String WORKER_SOCIALS_STATUS = "SocialStatus";
     public final static String WORKER_SPOUSE_QID = "SpouseQid";
     public final static String WORKER_BIRTHDATE = "BirthDate";
     public final static String WORKER_HIRINGDATE = "HiringDate";

@@ -5,12 +5,9 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-
 import model.AppModuleImpl;
 
 import oracle.adf.share.logging.ADFLogger;
-import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ApplicationModule;
 import oracle.jbo.Row;
@@ -19,7 +16,7 @@ import oracle.jbo.client.Configuration;
 
 import org.apache.commons.lang3.StringUtils;
 
-import view.backing.CommonService;
+import view.common.CommonService;
 
 import view.common.EmployeeDto;
 import view.common.Template;
@@ -341,9 +338,4 @@ public class EmpServices {
     }
 
 
-
-
-public void refreshComponentUI(UIComponent p1){
-        AdfFacesContext.getCurrentInstance().addPartialTarget(p1);
-    }
 }

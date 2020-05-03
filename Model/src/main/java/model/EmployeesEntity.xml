@@ -86,13 +86,6 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
-    <validation:RegExpValidationBean
-      Name="PhoneNumberRuleStructure"
-      OnAttribute="PhoneNumber"
-      Pattern="[0-9]{3}-?[0-9]{4}-?[0-9]{4}"
-      Inverse="false"
-      ResId="model.EmployeesEntity.PhoneNumber_Rule_0"
-      MessageFlavor="IGNORE_DETAILS"/>
   </Attribute>
   <Attribute
     Name="HireDate"

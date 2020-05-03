@@ -19,18 +19,18 @@
                     <af:spacer width="10" height="25"/>
                     <af:panelBox id="input">
                         <af:inputFile id="richUploadFile" binding="#{workerMB.richUploadFile}" label="File "
-                                      valueChangeListener="#{workerMB.uploadFileListener}"
+                                      valueChangeListener="#{workerMB.uploadFileEventListener}"
                                       inlineStyle="width:200px;" autoSubmit="true"/>
                     </af:panelBox>
                     <af:spacer width="10" height="25"/>
-                    <af:panelFormLayout id="s1" visible="#{workerMB.displayTable}"
-                                        partialTriggers="richUploadFile" binding="#{workerMB.panelForm}">
+                    <af:panelFormLayout id="s1" visible="#{workerMB.displayTable}" partialTriggers="richUploadFile"
+                                        binding="#{workerMB.panelForm}">
                         <af:panelBox id="pinfo" text="File information" background="light"
                                      contentStyle="background: #eff2f5;" showDisclosure="false">
-                            <af:inputText label="File Name :" value="#{workerMB.fileInfoDto.fileName}"
-                                          readOnly="true" autoSubmit="true"/>
-                            <af:inputText label="File Type :" value="#{workerMB.fileInfoDto.fileType}"
-                                          readOnly="true" autoSubmit="true"/>
+                            <af:inputText label="File Name :" value="#{workerMB.fileInfoDto.fileName}" readOnly="true"
+                                          autoSubmit="true"/>
+                            <af:inputText label="File Type :" value="#{workerMB.fileInfoDto.fileType}" readOnly="true"
+                                          autoSubmit="true"/>
                             <af:inputText label="File Size :" value="#{workerMB.fileInfoDto.fileSize} Bytes"
                                           readOnly="true" autoSubmit="true"/>
                             <af:inputText label="Right number of lines :" autoSubmit="true"
@@ -49,16 +49,15 @@
                         <af:table value="#{bindings.WorkerDraftView11.collectionModel}" var="row"
                                   rows="#{bindings.WorkerDraftView11.rangeSize}"
                                   emptyText="#{bindings.WorkerDraftView11.viewable ? 'No data to display.' : 'Access Denied.'}"
-                                  rowBandingInterval="0" scrollPolicy="page"  fetchSize="20"
+                                  rowBandingInterval="0" scrollPolicy="page" fetchSize="20"
                                   selectedRowKeys="#{bindings.WorkerDraftView11.collectionModel.selectedRow}"
                                   selectionListener="#{bindings.WorkerDraftView11.collectionModel.makeCurrent}"
-                                  rowSelection="single"  
-                                  filterModel="#{bindings.WorkerDraftView1Query.queryDescriptor}" filterVisible="true"
-                                  queryListener="#{bindings.WorkerDraftView1Query.processQuery}" varStatus="vs" id="t1">
+                                  rowSelection="single" filterModel="#{bindings.WorkerDraftView1Query.queryDescriptor}"
+                                  filterVisible="true" queryListener="#{bindings.WorkerDraftView1Query.processQuery}"
+                                  varStatus="vs" id="t1">
                             <af:column id="inx" sortable="false" width="25">
                                 <af:outputText value="#{vs.index+1}" id="otInex"/>
                             </af:column>
-                           
                             <af:column sortProperty="#{bindings.WorkerDraftView11.hints.SerialNumber.name}"
                                        filterable="true" sortable="true"
                                        headerText="#{bindings.WorkerDraftView11.hints.SerialNumber.label}" id="c1">
@@ -67,7 +66,7 @@
                                               columns="#{bindings.WorkerDraftView11.hints.SerialNumber.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.SerialNumber.precision}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.SerialNumber.tooltip}"
-                                              autosubmit="true" id="it1">
+                                              autosubmit="true" id="it1" binding="#{workerMB.serialNumberText}">
                                     <f:validator binding="#{row.bindings.SerialNumber.validator}"/>
                                     <af:convertNumber groupingUsed="false"
                                                       pattern="#{bindings.WorkerDraftView11.hints.SerialNumber.format}"/>
@@ -80,8 +79,8 @@
                                               label="#{bindings.WorkerDraftView11.hints.Qid.label}"
                                               columns="#{bindings.WorkerDraftView11.hints.Qid.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.Qid.precision}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.Qid.tooltip}" 
-                                              autosubmit="true" id="it2">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Qid.tooltip}" id="it2"
+                                              autosubmit="true" binding="#{workerMB.qidText}">
                                     <f:validator binding="#{row.bindings.Qid.validator}"/>
                                     <af:convertNumber groupingUsed="false"
                                                       pattern="#{bindings.WorkerDraftView11.hints.Qid.format}"/>
@@ -91,11 +90,11 @@
                                        sortable="true" headerText="#{bindings.WorkerDraftView11.hints.Name.label}"
                                        id="c3">
                                 <af:inputText value="#{row.bindings.Name.inputValue}"
-                                              label="#{bindings.WorkerDraftView11.hints.Name.label}"
-                                               autosubmit="true"
-                                               columns="#{bindings.WorkerDraftView11.hints.Name.displayWidth}"
+                                              label="#{bindings.WorkerDraftView11.hints.Name.label}" autosubmit="true"
+                                              columns="#{bindings.WorkerDraftView11.hints.Name.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.Name.precision}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.Name.tooltip}" id="it3">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Name.tooltip}" id="it3"
+                                              binding="#{workerMB.nameText}">
                                     <f:validator binding="#{row.bindings.Name.validator}"/>
                                 </af:inputText>
                             </af:column>
@@ -107,7 +106,7 @@
                                               columns="#{bindings.WorkerDraftView11.hints.NationalityCode.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.NationalityCode.precision}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.NationalityCode.tooltip}"
-                                              id="it4"  autosubmit="true">
+                                              id="it4" autosubmit="true" binding="#{workerMB.nationalityCodeText}">
                                     <f:validator binding="#{row.bindings.NationalityCode.validator}"/>
                                     <af:convertNumber groupingUsed="false"
                                                       pattern="#{bindings.WorkerDraftView11.hints.NationalityCode.format}"/>
@@ -120,7 +119,8 @@
                                               label="#{bindings.WorkerDraftView11.hints.Gender.label}"
                                               columns="#{bindings.WorkerDraftView11.hints.Gender.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.Gender.precision}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.Gender.tooltip}" id="it5">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.Gender.tooltip}" id="it5"
+                                              binding="#{workerMB.genderText}">
                                     <f:validator binding="#{row.bindings.Gender.validator}"/>
                                 </af:inputText>
                             </af:column>
@@ -133,7 +133,7 @@
                                               columns="#{bindings.WorkerDraftView11.hints.SocialStatus.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.SocialStatus.precision}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.SocialStatus.tooltip}"
-                                              id="it6">
+                                              id="it6" binding="#{workerMB.socialStatusText}">
                                     <f:validator binding="#{row.bindings.SocialStatus.validator}"/>
                                 </af:inputText>
                             </af:column>
@@ -145,8 +145,8 @@
                                               autosubmit="true"
                                               columns="#{bindings.WorkerDraftView11.hints.SpouseQid.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.SpouseQid.precision}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.SpouseQid.tooltip}"
-                                              id="it7">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.SpouseQid.tooltip}" id="it7"
+                                              binding="#{workerMB.spouseQidText}">
                                     <f:validator binding="#{row.bindings.SpouseQid.validator}"/>
                                     <af:convertNumber groupingUsed="false"
                                                       pattern="#{bindings.WorkerDraftView11.hints.SpouseQid.format}"/>
@@ -165,8 +165,8 @@
                                               label="#{bindings.WorkerDraftView11.hints.BirthDate.label}"
                                               autosubmit="true"
                                               columns="#{bindings.WorkerDraftView11.hints.BirthDate.displayWidth}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.BirthDate.tooltip}"
-                                              id="id2">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.BirthDate.tooltip}" id="id2"
+                                              binding="#{workerMB.birthDateText}">
                                     <f:validator binding="#{row.bindings.BirthDate.validator}"/>
                                     <af:convertDateTime pattern="#{bindings.WorkerDraftView11.hints.BirthDate.format}"/>
                                 </af:inputDate>
@@ -185,7 +185,7 @@
                                               autosubmit="true"
                                               columns="#{bindings.WorkerDraftView11.hints.HiringDate.displayWidth}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.HiringDate.tooltip}"
-                                              id="id4">
+                                              id="id4" binding="#{workerMB.hiringDateTExt}">
                                     <f:validator binding="#{row.bindings.HiringDate.validator}"/>
                                     <af:convertDateTime pattern="#{bindings.WorkerDraftView11.hints.HiringDate.format}"/>
                                 </af:inputDate>
@@ -197,8 +197,8 @@
                                               label="#{bindings.WorkerDraftView11.hints.JobNumber.label}"
                                               columns="#{bindings.WorkerDraftView11.hints.JobNumber.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.JobNumber.precision}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.JobNumber.tooltip}"
-                                              id="it8">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.JobNumber.tooltip}" id="it8"
+                                              binding="#{workerMB.jobNumberText}">
                                     <f:validator binding="#{row.bindings.JobNumber.validator}"/>
                                 </af:inputText>
                             </af:column>
@@ -210,7 +210,8 @@
                                               autosubmit="true"
                                               columns="#{bindings.WorkerDraftView11.hints.JobName.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.JobName.precision}"
-                                              shortDesc="#{bindings.WorkerDraftView11.hints.JobName.tooltip}" id="it9">
+                                              shortDesc="#{bindings.WorkerDraftView11.hints.JobName.tooltip}" id="it9"
+                                              binding="#{workerMB.jobNameText}">
                                     <f:validator binding="#{row.bindings.JobName.validator}"/>
                                 </af:inputText>
                             </af:column>
@@ -251,7 +252,7 @@
                                               columns="#{bindings.WorkerDraftView11.hints.Specialization.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.Specialization.precision}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.Specialization.tooltip}"
-                                              id="it12">
+                                              id="it12" binding="#{workerMB.specializationText}">
                                     <f:validator binding="#{row.bindings.Specialization.validator}"/>
                                 </af:inputText>
                             </af:column>
@@ -264,7 +265,7 @@
                                               columns="#{bindings.WorkerDraftView11.hints.BasicSalary.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.BasicSalary.precision}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.BasicSalary.tooltip}"
-                                              id="it13">
+                                              id="it13" binding="#{workerMB.basicSalaryText}">
                                     <f:validator binding="#{row.bindings.BasicSalary.validator}"/>
                                     <af:convertNumber groupingUsed="false"
                                                       pattern="#{bindings.WorkerDraftView11.hints.BasicSalary.format}"/>
@@ -357,7 +358,7 @@
                                               columns="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.displayWidth}"
                                               maximumLength="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.precision}"
                                               shortDesc="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.tooltip}"
-                                              id="it19">
+                                              id="it19" binding="#{workerMB.totalMonthlySalaryText}">
                                     <f:validator binding="#{row.bindings.TotalMonthlySalary.validator}"/>
                                     <af:convertNumber groupingUsed="false"
                                                       pattern="#{bindings.WorkerDraftView11.hints.TotalMonthlySalary.format}"/>
@@ -391,17 +392,15 @@
                             </af:column>
                         </af:table>
                         <af:panelBox id="pSave">
-                            <af:button text="Save"
-                                       id="bSave" action="#{workerMB.bSave_action}"/>
-                            <af:button text="Submit"
-                                         id="b1" action="#{workerMB.submit}"/>
+                            <af:button text="Save" id="bSave" action="#{workerMB.bSave_action}"/>
+                            <af:button text="Submit" id="b1" action="#{workerMB.submit}"/>
                         </af:panelBox>
                     </af:panelFormLayout>
                 </f:facet>
                 <f:facet name="header"/>
                 <f:facet name="end"/>
                 <f:facet name="start">
-                    <ui:include src="/web/template1/empNavigation.jsff"/> 
+                    <ui:include src="/web/template2/workerNavigation.jsff"/>
                 </f:facet>
                 <f:facet name="branding"></f:facet>
                 <f:facet name="copyright"/>

@@ -40,10 +40,10 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import view.backing.AbstractMBConfig;
 
-import view.common.CommonService;
-import view.common.FileInfoDto;
-import view.common.Template;
-import view.common.WorkerDto;
+import view.backing.common.CommonService;
+import view.backing.common.FileInfoDto;
+import view.backing.common.Template;
+import view.backing.common.WorkerDto;
 
 public class WorkerMB extends AbstractMBConfig {
 

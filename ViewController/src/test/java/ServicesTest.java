@@ -8,10 +8,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import view.backing.CommonService;
 import view.backing.emp.EmpServices;
 
-import view.common.EmployeeDto;
+import view.backing.common.CommonService;
+import view.backing.common.EmployeeDto;
 
 
 public class ServicesTest {

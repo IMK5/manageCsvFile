@@ -16,10 +16,10 @@ import oracle.jbo.client.Configuration;
 
 import org.apache.commons.lang3.StringUtils;
 
-import view.common.CommonService;
+import view.backing.common.CommonService;
 
-import view.common.EmployeeDto;
-import view.common.Template;
+import view.backing.common.EmployeeDto;
+import view.backing.common.Template;
 
 public class EmpServices {
 

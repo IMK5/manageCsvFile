@@ -121,12 +121,29 @@ public class AppModuleImpl extends ApplicationModuleImpl {
         return (WorkerDraftViewImpl) findViewObject("WorkerDraftView1");
     }
 
+
     /**
      * Container's getter for WorkerView1.
      * @return WorkerView1
      */
     public ViewObjectImpl getWorkerView1() {
         return (ViewObjectImpl) findViewObject("WorkerView1");
+    }
+
+    /**
+     * Container's getter for WorkerView2.
+     * @return WorkerView2
+     */
+    public ViewObjectImpl getWorkerView2() {
+        return (ViewObjectImpl) findViewObject("WorkerView2");
+    }
+
+    /**
+     * Container's getter for WorkerView1_1.
+     * @return WorkerView1_1
+     */
+    public ViewObjectImpl getWorkerView1_1() {
+        return (ViewObjectImpl) findViewObject("WorkerView1_1");
     }
 }
 

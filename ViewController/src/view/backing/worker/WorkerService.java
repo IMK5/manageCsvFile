@@ -16,9 +16,9 @@ import oracle.jbo.client.Configuration;
 
 import org.apache.commons.lang3.StringUtils;
 
-import view.common.CommonService;
-import view.common.Template;
-import view.common.WorkerDto;
+import view.backing.common.CommonService;
+import view.backing.common.Template;
+import view.backing.common.WorkerDto;
 
 
 public class WorkerService {

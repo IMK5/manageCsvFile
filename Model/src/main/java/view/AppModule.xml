@@ -7,10 +7,5 @@
   Version="12.2.1.9.14"
   InheritPersonalization="merge"
   ClearCacheOnRollback="true">
-  <ViewUsage
-    Name="WorkerView1"
-    ViewObjectName="view.WorkerView"/>
-  <ViewUsage
-    Name="WorkerView2"
-    ViewObjectName="view.WorkerView"/>
+  
 </AppModule>

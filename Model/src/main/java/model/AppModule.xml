@@ -41,13 +41,7 @@
     ViewObjectName="view.WorkerDraftView"/>
   <ViewUsage
     Name="WorkerView1"
-    ViewObjectName="model.WorkerView"/>
-  <ViewUsage
-    Name="WorkerView2"
-    ViewObjectName="model.WorkerView"/>
-  <ViewUsage
-    Name="WorkerView1_1"
-    ViewObjectName="model.WorkerView1"/>
+    ViewObjectName="view.WorkerView"/>
   <ViewLinkUsage
     Name="EmpManagerFkLink1"
     ViewLinkObjectName="view.EmpManagerFkLink"

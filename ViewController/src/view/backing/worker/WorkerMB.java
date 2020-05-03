@@ -39,7 +39,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import view.backing.AbstractMBConfig;
-
 import view.backing.common.CommonService;
 import view.backing.common.FileInfoDto;
 import view.backing.common.Template;
@@ -236,6 +235,11 @@ public class WorkerMB extends AbstractMBConfig {
                 showPopup();
             } catch (Exception e) {
                 e.printStackTrace();
+               /* if(e.getMessage().contains("GENDER_FK1")){
+                        CommonService.shoeInlineMessage("Please enter valid value : [ M or F]");
+                    } if(e.getMessage().contains("SOCIAL_STATUS_FK1")){
+                        CommonService.shoeInlineMessage("Please enter valid value : [ S or W or M or D ]");
+                    }*/
                 CommonService.shoeInlineMessage(e.getMessage());
                 rollback(appModule);
             }

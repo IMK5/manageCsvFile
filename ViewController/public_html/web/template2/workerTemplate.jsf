@@ -392,7 +392,7 @@
                             </af:column>
                         </af:table>
                         <af:panelBox id="pSave">
-                            <af:button text="Save" id="bSave" action="#{workerMB.bSave_action}"/>
+                            <af:button text="Save" id="bSave" action="#{workerMB.bSave_action}" immediate="true"/>
                             <af:button text="Submit" id="b1" action="#{workerMB.submit}"/>
                         </af:panelBox>
                     </af:panelFormLayout>
